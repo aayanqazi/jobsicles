@@ -16,7 +16,7 @@ export default class IntroSlide1 extends Component {
           <Text style={styles.subtitle}>"View job applications, manage & invite to interviews</Text>
 
           <View style={{ marginTop: 40 }}>
-            <Button buttonText="Aye, Lets go" width={200} color="#fff" bgColor="#ff5a4f" />
+            <Button onPress={()=>Actions.replace('login')} buttonText="Aye, Lets go" width={200} color="#fff" bgColor="#ff5a4f" />
           </View>
         </Content>
         <View style={styles.sliderIcons}>
@@ -25,7 +25,6 @@ export default class IntroSlide1 extends Component {
            <FontAwesome onPress={()=>Actions.replace('splashThree')} style={styles.icon} name="circle-o" />
            <FontAwesome style={styles.icon} color='#344d5e' name="circle" />
         </View>
-
       </Container>
     )
   }

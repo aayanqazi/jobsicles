@@ -24,8 +24,8 @@ import { Router, Scene, Stack } from 'react-native-router-flux';
 // import OrderDetails from './screens/OrderDetails';
 
 // //Importing JobSeeker Files
-// import Login from './screens/Login';
-// import Signup from './screens/Signup';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
 // import GetStarted from './screens/GetStarted';
 // import Jobs from './screens/Jobs';
 // import AllJobs from './screens/AllJobs';
@@ -47,8 +47,7 @@ import { Router, Scene, Stack } from 'react-native-router-flux';
 // import EditProfile4 from './screens/EditProfile4';
 // import EditProfile5 from './screens/EditProfile5';
 
-// //Intro 
-// import Intro from './screens/Intro';
+// Intro Screens 
 import Splash from "../components/splash";
 import Intro from "../components/IntroSlide1";
 import IntroTwo from "../components/IntroSlide2";
@@ -65,7 +64,8 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="splashTwo" component={IntroTwo} />
         <Scene hideNavBar={true} key="splashThree" component={IntroThree} />
         <Scene hideNavBar={true} key="splashFour" component={IntroFour} />
-        
+        <Scene hideNavBar={true} key="login" component={Login} />
+        <Scene hideNavBar={true} key="signup" component={Signup} />
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
         <Scene hideNavBar={true} key="editProfile5" component={EditProfile5} />
         <Scene hideNavBar={true} key="editProfile4" component={EditProfile4} />

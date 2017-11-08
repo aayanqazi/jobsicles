@@ -7,7 +7,7 @@ export default class Splash extends React.Component {
 
   componentDidMount(){
     setTimeout(function(){
-      Actions.push('splashOne')
+      Actions.replace('splashOne')
     },2000)
   }
   render() {
