@@ -19,7 +19,7 @@ export default class IntroSlide1 extends Component {
         <View style={styles.sliderIcons}>
            <FontAwesome onPress={()=>Actions.replace('splashOne')} style={styles.icon} name="circle-o" />
            <FontAwesome style={styles.icon} color='#344d5e' name="circle" />
-           <FontAwesome style={styles.icon} name="circle-o" />
+           <FontAwesome onPress={()=>Actions.replace('splashThree')} style={styles.icon} name="circle-o" />
            <FontAwesome style={styles.icon} name="circle-o" />
         </View>
         <FontAwesome onPress={()=>Actions.replace('splashThree')} style={styles.arrowIcon} name="arrow-right" />

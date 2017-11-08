@@ -28,7 +28,7 @@ export default class Login extends Component {
               <Button buttonText="Login" color="#fff" bgColor="#243747" width="100%" />
             </View>
             <View style={{ marginVertical: 5, marginBottom: 20 }}>
-              <Button onPress={()=>Actions.push('signup')} buttonText="Create Account" width="100%" />
+              <Button onPress={()=>Actions.push('getStarted')} buttonText="Create Account" width="100%" />
             </View>
             <Text style={[styles.smallText, { textAlign: "center" }]}> Login with Social Account</Text>
             <View style={{ flexDirection: "row", alignSelf: "center" }}>

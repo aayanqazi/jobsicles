@@ -26,7 +26,7 @@ import { Router, Scene, Stack } from 'react-native-router-flux';
 // //Importing JobSeeker Files
 import Login from '../components/Login';
 import Signup from '../components/Signup';
-// import GetStarted from './screens/GetStarted';
+import GetStarted from '../components/GetStarted';
 // import Jobs from './screens/Jobs';
 // import AllJobs from './screens/AllJobs';
 // import SearchResult from './screens/SearchResult';
@@ -65,6 +65,7 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="splashThree" component={IntroThree} />
         <Scene hideNavBar={true} key="splashFour" component={IntroFour} />
         <Scene hideNavBar={true} key="login" component={Login} />
+        <Scene hideNavBar={true} key="getStarted" component={GetStarted} />
         <Scene hideNavBar={true} key="signup" component={Signup} />
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
         <Scene hideNavBar={true} key="editProfile5" component={EditProfile5} />
