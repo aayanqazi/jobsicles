@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View ,Image} from 'react-native';
 import { AppLoading } from 'expo';
 import RouterNative from './src/config/router';
+import Store from "./src/store/";
+import { Provider } from 'react-redux';
 
 export default class App extends React.Component {
   state = {
@@ -21,7 +23,9 @@ export default class App extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         {
-          this.state.fontLoaded ? <RouterNative /> : null
+          this.state.fontLoaded ? <Provider store={Store}>
+           <RouterNative /> 
+           </Provider>: null
         }
       </View>
     );
