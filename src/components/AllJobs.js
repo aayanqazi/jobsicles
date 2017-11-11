@@ -3,6 +3,8 @@ import { TouchableOpacity, Image } from 'react-native'
 import { ListItem, Right, Container, Content, View, Text } from 'native-base';
 import HeaderSmall from './common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
+import { connect } from 'react-redux'
+import JobActions from "../store/actions/jobs";
 
 const AllJobsItems = () => {
   const styles = {
@@ -180,7 +182,10 @@ const AllJobsItems = () => {
 }
 
 
-export default class MyJobs extends Component {
+class MyJobs extends Component {
+  componentWillMount(){
+    this.props.getJob(-1)
+  }
   render() {
     return (
       <Container>
@@ -197,3 +202,18 @@ export default class MyJobs extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    job: state.JobReducer,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getJob: (count) => dispatch(JobActions.alljobs(count))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyJobs);
+

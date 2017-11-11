@@ -2,16 +2,20 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import AuthReducer from './reducers/auth';
 import AuthEpic from "./epic/auth";
+import JobReducer from "./reducers/jobs";
+import JobEpic from "./epic/jobs";
 
 //combine epic
 const rootEpic = combineEpics(
     AuthEpic.signupEpic,
-    AuthEpic.loginEpic
+    AuthEpic.loginEpic,
+    JobEpic.allJobsEpic
   );
 
 //combine reducers
 export const rootReducer = combineReducers({
-    AuthReducer
+    AuthReducer,
+    JobReducer
 });
 
 //create epic middleware
