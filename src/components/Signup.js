@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Content, View, Text, Input, Item, Icon, Right, CheckBox } from 'native-base';
 import Button from './common/Button';
 import { Actions } from "react-native-router-flux";
-import API from "../config/api";
 import { connect } from 'react-redux'
 import AuthActions from "../store/actions/auth";
 

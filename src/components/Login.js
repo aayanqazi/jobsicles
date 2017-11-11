@@ -1,11 +1,45 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { 
+  Image,
+  AsyncStorage
+ } from 'react-native';
 import { Container, Content, View, Text, Input, Item, Icon, Right } from 'native-base';
 import Button from './common/Button';
-import {Actions} from "react-native-router-flux";
+import { Actions } from "react-native-router-flux";
+import { connect } from 'react-redux'
+import AuthActions from "../store/actions/auth";
 
-export default class Login extends Component {
+class Login extends Component {
+  state = {
+    username: '',
+    password: ''
+  }
+  onLogin = () => {
+    this.props.login({
+      username: this.state.username,
+      password: this.state.password
+    })
+  }
+
+  async componentWillReceiveProps(newProps) {
+    if (newProps.auth.isAuthenticated) {
+      if (newProps.auth.authUser) {
+        await AsyncStorage.setItem('user', JSON.stringify({
+            isLoggedIn: true,
+            cookie: newProps.auth.authUser.cookie,
+            id:newProps.auth.authUser.user.id,
+        }));
+        console.log("(user logged in)");
+    }
+      Actions.push('alljobs');
+    }
+    else if (newProps.auth.isError) {
+      alert('Something Went Wrong !')
+    }
+  }
+
   render() {
+    console.log(this.props)
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         <Content>
@@ -14,10 +48,12 @@ export default class Login extends Component {
           </View>
           <View style={{ marginHorizontal: 15 }}>
             <Item>
-              <Input style={styles.input} keyboardType="email-address" placeholder="E-mail" />
+              <Input onChangeText={(value) => { this.setState({ username: value }) }} style={styles.input} keyboardType="email-address" placeholder="E-mail" />
             </Item>
             <Item>
-              <Input style={styles.input} secureTextEntry={true} placeholder="Password" />
+              <Input onChangeText={(value) => this.setState({
+                password: value
+              })} style={styles.input} secureTextEntry={true} placeholder="Password" />
               <Icon name="ios-eye-outline" />
             </Item>
             <View style={{ flexDirection: "row" }}>
@@ -25,10 +61,10 @@ export default class Login extends Component {
             </View>
 
             <View style={{ marginVertical: 5 }}>
-              <Button buttonText="Login" color="#fff" bgColor="#243747" width="100%" />
+              <Button onPress={this.onLogin} buttonText="Login" color="#fff" bgColor="#243747" width="100%" />
             </View>
             <View style={{ marginVertical: 5, marginBottom: 20 }}>
-              <Button onPress={()=>Actions.push('getStarted')} buttonText="Create Account" width="100%" />
+              <Button onPress={() => Actions.push('getStarted')} buttonText="Create Account" width="100%" />
             </View>
             <Text style={[styles.smallText, { textAlign: "center" }]}> Login with Social Account</Text>
             <View style={{ flexDirection: "row", alignSelf: "center" }}>
@@ -69,3 +105,17 @@ const styles = {
     backgroundColor: "#00bbb1"
   },
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.AuthReducer,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (userObj) => dispatch(AuthActions.signin(userObj))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
