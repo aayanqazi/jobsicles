@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Image} from 'react-native';
+import { StyleSheet, Text, View ,Image, AsyncStorage} from 'react-native';
 import { AppLoading } from 'expo';
 import {Actions} from "react-native-router-flux";
 
 export default class Splash extends React.Component {
 
   componentDidMount(){
-    setTimeout(function(){
-      Actions.replace('splashOne')
+    setTimeout(async function(){
+      let value = await AsyncStorage.getItem('user');
+      console.log(value)
+      if(value)
+      {
+        Actions.replace('alljobs')
+      }
+      else{
+        Actions.replace('splashOne')        
+      }
     },2000)
   }
   render() {
