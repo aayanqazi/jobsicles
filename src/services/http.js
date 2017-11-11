@@ -8,7 +8,6 @@ export class HttpService {
             url,
             method: 'GET',
             async: true,
-            crossDomain: true,
             responseType: 'json',
             createXHR: () => new XMLHttpRequest()
         });

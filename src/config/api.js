@@ -32,7 +32,7 @@ export default class AuthController extends React.Component {
                 method: 'GET'
             })
                 .then((response) => {
-                    return response.json(response);
+                    return response.json();
                 })
                 .then((nonceJSON) => {
                     regUrl = API_ENDPOINT + `/user/register/?username=${data.username}&email=${data.email}&nonce=${nonceJSON.nonce}&display_name=${data.username}&user_pass=${data.password}&role=${data.role}&rand=${rand}`;
@@ -41,7 +41,7 @@ export default class AuthController extends React.Component {
                     })
                 })
                 .then((response) => {
-                    resolve(response.json(response));
+                    resolve(response);
                 })
                 .catch((error) => {
                     console.error(error);

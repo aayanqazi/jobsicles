@@ -5,7 +5,7 @@ import AuthEpic from "./epic/auth";
 
 //combine epic
 const rootEpic = combineEpics(
-    
+    AuthEpic.signupEpic
   );
 
 //combine reducers

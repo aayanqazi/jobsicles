@@ -10,6 +10,7 @@ export default class AuthActions {
     }
 
     static signupupSuccessful(authUser) {
+        console.log(authUser)
         return {
             type: AuthConstants.SIGNUP_SUCCESSFUL,
             payload: authUser

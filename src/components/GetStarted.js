@@ -36,14 +36,14 @@ export default class GetStarted extends Component {
                 onValueChange={this.onValueChange2.bind(this)}
               >
                 <Item label=" -Choose Wisely-" value="key0" />
-                <Item label="Option 1" value="key1" />
-                <Item label="Option 2" value="key2" />
+                <Item label="Jobseeker" value="job" />
+                <Item label="Employer" value="employee" />
               </Picker>
             </View>
 
             <View style={styles.row}>
               <Right>
-                <Icon onPress={()=>Actions.push('signup')} style={styles.backIcon} name="ios-arrow-dropright" />
+                <Icon onPress={()=>Actions.push('signup',{role:this.state.selected2})} style={styles.backIcon} name="ios-arrow-dropright" />
               </Right>
             </View>
           </View>
