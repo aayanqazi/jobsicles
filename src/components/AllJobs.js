@@ -5,6 +5,7 @@ import HeaderSmall from './common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
 import JobActions from "../store/actions/jobs";
+import Loader from "./common/loader"; 
 
 const AllJobsItems = () => {
   const styles = {
@@ -187,14 +188,19 @@ class MyJobs extends Component {
     this.props.getJob(-1)
   }
   render() {
+    console.log(this.props)
     return (
       <Container>
+                  <Loader />
+
+        {/* {this.props.job.isProcessing?<Loader />:null} */}
         <HeaderSmall
           headerText="All Jobs"
           rightIcon={true}
           rightIconName="ios-options"
         />
         <Content style={{ backgroundColor: "#fff" }}>
+          <Loader />
           <AllJobsItems />
         </Content >
         <FooterNav2 />

@@ -14,10 +14,15 @@ export default class AuthEpic {
             .switchMap(({ payload }) => {
                 return HttpService.get(Path.URL +`/user/generate_auth_cookie/?username=${payload.username}&password=${payload.password}`)
                     .map((arr) => {
-                        return AuthActions.signinSuccessful(arr.response)
+                        if(arr.response.error)
+                        {
+                            return AuthActions.signinRejected(arr.response)
+                        }
+                        else
+                        {
+                            return AuthActions.signinSuccessful(arr.response)                            
+                        }
                     })
-                    .catch(err => AuthActions.signinRejected(err)
-                    )
             })
 
     //Epic middleware for signup

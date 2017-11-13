@@ -1,7 +1,7 @@
 import AuthActions from "./../constants/auth";
 
 const INITIAL_STATE = {
-    authUser: {},
+    authUser: null,
     isAuthenticated: false,
     isProcessing: false,
     isRegistered: false,
@@ -22,7 +22,7 @@ function AuthReducer(state = INITIAL_STATE, action) {
         case AuthActions.SIGNIN_SUCCESSFUL:
             return { ...state, isProcessing: false,isRegistered: false, isAuthenticated: true, isError: false, authUser: action.payload };
         case AuthActions.SIGNIN_REJECTED:
-            return { ...state, isProcessing: false,isRegistered: false, isAuthenticated: false, authUser: {}, isError: true, errorMessage: action.payload };
+            return { ...state, isProcessing: false,isRegistered: false, isAuthenticated: false, authUser: null, isError: true, errorMessage: action.payload };
         default:
             return state;
     }

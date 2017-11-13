@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { Container, View, Text, Content } from 'native-base';
+import { 
+  Image,
+  ViewPagerAndroid,
+} from 'react-native';
+import { Container, Text,View, Content } from 'native-base';
 import {FontAwesome} from "@expo/vector-icons"
 import {Actions} from "react-native-router-flux";
 
@@ -33,6 +36,10 @@ const styles = {
   img: {
     width: "100%",
     height: 130
+  },
+  pageStyle: {
+    alignItems: 'center',
+    padding: 20,
   },
   arrowIcon:{
     position:'absolute',

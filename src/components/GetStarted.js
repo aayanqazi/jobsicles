@@ -16,6 +16,15 @@ export default class GetStarted extends Component {
     });
   }
 
+  nextScreen = ()=>{
+    if(this.state.selected2 === "key0" || this.state.selected2 === undefined)
+    {
+      alert('Please select any one option')
+    }
+    else{
+      Actions.push('signup',{role:this.state.selected2})      
+    }
+  }
   render() {
     return (
       <Container style={{ backgroundColor: "#fff" }}>
@@ -40,14 +49,12 @@ export default class GetStarted extends Component {
                 <Item label="Employer" value="employee" />
               </Picker>
             </View>
-
             <View style={styles.row}>
               <Right>
-                <Icon onPress={()=>Actions.push('signup',{role:this.state.selected2})} style={styles.backIcon} name="ios-arrow-dropright" />
+                <Icon onPress={()=>this.nextScreen()} style={styles.backIcon} name="ios-arrow-dropright" />
               </Right>
             </View>
           </View>
-
         </Content>
       </Container >
     )
