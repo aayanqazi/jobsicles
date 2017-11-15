@@ -4,15 +4,22 @@ import Button from './common/Button';
 import { Actions } from "react-native-router-flux";
 import { connect } from 'react-redux'
 import AuthActions from "../store/actions/auth";
+import Material from 'react-native-vector-icons/MaterialIcons';
+import { DangerZone } from 'expo';
+const { Lottie } = DangerZone;
 
 class Signup extends Component {
   constructor() {
     super();
     this.state = {
       checked: false,
-      email: '',
       username: '',
-      password: ''
+      password: '',
+      confirm:'',
+      matchPasswordError:false,
+      usernameError:false,
+      passwordError:false,
+      confirmError:false
     }
   }
   onPress() {
@@ -27,13 +34,81 @@ class Signup extends Component {
     }
   }
   onSubmit = () => {
-    var obj = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-      role: this.props.role
+    if(this.state.username === '' || this.state.password === '' || this.state.confirm === "")
+    {
+      if(this.state.username === '' && this.state.password === '' && this.state.confirm === "")
+      {
+        this.setState({
+          usernameError:true,
+          passwordError:true,
+          confirmError:true
+        })
+      }
+      else if (this.state.username === '') {
+        this.setState({
+          usernameError: true
+        })
+      }
+      else if (this.state.password === '') {
+        this.setState({
+          passwordError: true
+        })
+      }
+      else if (this.state.confirm === '')
+      {
+        this.setState({
+          confirmError:true
+        })
+      }
+      else if(this.state.password != this.state.confirm)
+      {
+        alert('lalallalalala')
+        this.setState({
+          matchPasswordError:true
+        })
+      }
     }
-    this.props.signup(obj);
+    // var obj = {
+    //   username: this.state.username,
+    //   email: this.state.email,
+    //   password: this.state.password,
+    //   role: this.props.role
+    // }
+    // this.props.signup(obj);
+  }
+  onUsername = (value) => {
+    if (value !== '') {
+      this.setState({
+        usernameError: false
+      })
+    }
+    this.setState({ username: value });
+  }
+
+  onPassword = (value) => {
+    if (value !== '') {
+      this.setState({
+        passwordError: false
+      })
+    }
+    this.setState({ password: value });
+  }
+
+  onConfirm = (value) =>
+  {
+    if(this.state.password === value && value !== '')
+    {
+      this.setState({
+        matchPasswordError:false
+      })
+    }
+    else if (value !== ''){
+      this.setState({
+        confirmError:false
+      })
+    }
+    this.setState({ confirm: value });
+    
   }
   render() {
     console.log(this.props)
@@ -43,17 +118,26 @@ class Signup extends Component {
           <View style={{ marginHorizontal: 15 }}>
             <Icon onPress={() => Actions.pop()} style={styles.backIcon} name="md-arrow-back" />
             <Text style={styles.title}>Enter your email and set a password</Text>
-            <Item>
-              <Input onChangeText={(val) => this.setState({ email: val })} keyboardType="email-address" placeholder="E-mail" />
+            <Item style={this.state.usernameError ? { borderBottomColor: 'red' } : null}>
+              <Input onChangeText={(value) => { this.onUsername(value) }} keyboardType="email-address" placeholder="E-mail" />
+              {this.state.usernameError ? <Material name='error' style={{ color: 'red' ,fontSize:20,marginTop:5,marginRight:5}} /> : null}
             </Item>
-            <Item>
-              <Input onChangeText={(val) => this.setState({ username: val })} placeholder="username" />
+            
+            <Item style={this.state.passwordError ? { borderBottomColor: 'red' } : null}>
+              <Input secureTextEntry={true} onChangeText={(value) => { this.onPassword(value) }} placeholder="Password" />
+              <Icon name="ios-eye-outline" style={this.state.passwordError?{color:'red'}:null} />
+            </Item>
+
+            <Item style={this.state.confirmError ? { borderBottomColor: 'red' } : null}>
+              <Input onChangeText={(val) => this.onConfirm(val)} placeholder="Confirm password" />
               <Icon name="ios-eye-outline" />
             </Item>
-            <Item>
-              <Input secureTextEntry={true} onChangeText={(val) => this.setState({ password: val })} placeholder="Password" />
-              <Icon name="ios-eye-outline" />
-            </Item>
+            {
+              this.state.matchPasswordError?<Text style={{color:'red',textAlign:'center'}}>
+              Password not matched !
+            </Text>:null
+            }
+
 
             <View style={styles.row}>
               <CheckBox onPress={this.onPress.bind(this)} checked={this.state.checked} color="#243747" />
