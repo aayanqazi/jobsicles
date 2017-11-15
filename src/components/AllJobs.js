@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Image } from 'react-native'
+import { TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native'
 import { ListItem, Right, Container, Content, View, Text } from 'native-base';
 import HeaderSmall from './common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
 import JobActions from "../store/actions/jobs";
-import Loader from "./common/loader"; 
+import Loader from "./common/loader";
 
-const AllJobsItems = () => {
+const AllJobsItems = ({ data }) => {
   const styles = {
     rowStyles: {
       flexDirection: "row",
@@ -39,169 +39,121 @@ const AllJobsItems = () => {
       marginVertical: 1
     },
   }
+
   return (
-    <Content>
-      <ListItem>
-        <View style={styles.rowStyles}>
-          <View style={{ marginLeft: 15 }}>
-            <Text style={styles.text1}>Admin Officer & Clerical Assist</Text>
+    // <Content>
+    <ListItem>
+      <View style={styles.rowStyles}>
+        <View style={{ marginLeft: 15 }}>
+          <Text style={styles.text1}>{data.item.title}</Text>
 
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-              <Text style={styles.smallText}>ABC Company Pvt Ltd</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-              <Text style={styles.smallText}>MVR 4000 - 5000</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-              <Text style={styles.smallText}>Hulhumale</Text>
-            </View>
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-              <Text style={styles.smallText}>Full Time</Text>
-            </View>
-
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
+            <Text style={styles.smallText}>{data.item.author.name}</Text>
           </View>
-          <Right>
-            <View style={styles.rowStyles}>
-              <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
-              <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
-            </View>
-          </Right>
+
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
+            <Text style={styles.smallText}>MVR 4000 - 5000</Text>
+          </View>
+
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
+            <Text style={styles.smallText}>Hulhumale</Text>
+          </View>
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
+            <Text style={styles.smallText}>{data.item.taxonomy_job_type[0].slug}</Text>
+          </View>
 
         </View>
-      </ListItem>
-
-      <ListItem>
-        <View style={styles.rowStyles}>
-          <View style={{ marginLeft: 15 }}>
-            <Text style={styles.text1}> Procuremental Officer & Regional Manager</Text>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-              <Text style={styles.smallText}>ABC Company Pvt Ltd</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-              <Text style={styles.smallText}>MVR 4000 - 5000</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-              <Text style={styles.smallText}>Hulhumale</Text>
-            </View>
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-              <Text style={styles.smallText}>Full Time</Text>
-            </View>
-
+        <Right>
+          <View style={styles.rowStyles}>
+            <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
+            <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
           </View>
-          <Right>
-            <View style={styles.rowStyles}>
-              <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/notsaved_small.png')} />
-            </View>
-          </Right>
+        </Right>
 
-        </View>
-      </ListItem>
+      </View>
+    </ListItem>
 
-      <ListItem>
-        <View style={styles.rowStyles}>
-          <View style={{ marginLeft: 15 }}>
-            <Text style={styles.text1}>General Technician Level 2</Text>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-              <Text style={styles.smallText}>ABC Company Pvt Ltd</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-              <Text style={styles.smallText}>MVR 4000 - 5000</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-              <Text style={styles.smallText}>Hulhumale</Text>
-            </View>
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-              <Text style={styles.smallText}>Full Time</Text>
-            </View>
-
-          </View>
-          <Right>
-            <View style={styles.rowStyles}>
-              <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
-              <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
-            </View>
-          </Right>
-
-        </View>
-      </ListItem>
-
-      <ListItem>
-        <View style={styles.rowStyles}>
-          <View style={{ marginLeft: 15 }}>
-            <Text style={styles.text1}>Toilet Cleaner</Text>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-              <Text style={styles.smallText}>ABC Company Pvt Ltd</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-              <Text style={styles.smallText}>MVR 4000 - 5000</Text>
-            </View>
-
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-              <Text style={styles.smallText}>Hulhumale</Text>
-            </View>
-            <View style={styles.row2Styles}>
-              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-              <Text style={styles.smallText}>Full Time</Text>
-            </View>
-
-          </View>
-          <Right>
-            <View style={styles.rowStyles}>
-              <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
-            </View>
-          </Right>
-
-        </View>
-      </ListItem>
-    </Content >
   )
 }
 
 
 class MyJobs extends Component {
-  componentWillMount(){
-    this.props.getJob(-1)
+  state = {
+    data: [],
+    page: 0,
+    loading: false
   }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.job.isProcessing) {
+      this.setState({
+        loading: true
+      })
+    }
+    if (newProps.job.isDone) {
+      this.setState({
+        data: this.state.page === 0 ? newProps.job.alljobs : this.state.data.concat(newProps.job.alljobs)
+      })
+    }
+    else {
+      this.setState({
+        loading: false
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.makeRemoteRequest();
+  }
+
+  makeRemoteRequest = () => {
+    this.props.getJob(this.state.page)
+  }
+
+  requestMore = () => {
+    this.setState({
+      page: this.state.page + 1
+    }, this.makeRemoteRequest())
+  }
+
+  renderFooter = () => {
+    if (this.state.loading) return null;
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: "#CED0CE"
+        }}
+      >
+        <ActivityIndicator animating size="small" />
+      </View>
+    );
+  };
   render() {
-    console.log(this.props)
+    console.log('state', this.state)
     return (
       <Container>
-                  <Loader />
-
-        {/* {this.props.job.isProcessing?<Loader />:null} */}
         <HeaderSmall
           headerText="All Jobs"
           rightIcon={true}
           rightIconName="ios-options"
         />
         <Content style={{ backgroundColor: "#fff" }}>
-          <Loader />
-          <AllJobsItems />
+          {this.state.data.length !== 0 ? <FlatList
+            data={this.state.data}
+            renderItem={(items) => (
+              <AllJobsItems data={items} />
+            )}
+            keyExtractor={(item, index) => index}
+            refreshing={this.props.job.isProcessing}
+            ListFooterComponent={this.renderFooter}
+            onEndReached={this.requestMore}
+          /> : null}
         </Content >
         <FooterNav2 />
       </Container >

@@ -14,7 +14,6 @@ export default class JobEpic {
             .switchMap(({ payload }) => {
                 return HttpService.get(Path.URL +`/get_posts/?post_type=noo_job&count=${payload}`)
                     .map((arr) => {
-                        console.log(arr);
                         return JobActions.alljobsSuccessful(arr.response.posts)
                     })
                     .catch(err => 
