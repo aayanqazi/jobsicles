@@ -12,15 +12,28 @@ export default class JobEpic {
     static allJobsEpic = (action$) =>
         action$.ofType(Jobs.ALL_JOBS)
             .switchMap(({ payload }) => {
-                return HttpService.get(Path.URL +`/get_posts/?post_type=noo_job&count=${payload}`)
+                return HttpService.get(Path.URL + `/get_posts/?post_type=noo_job&count=${payload}`)
                     .map((arr) => {
                         return JobActions.alljobsSuccessful(arr.response.posts)
                     })
-                    .catch(err => 
-                        {
-                            console.log(err);                            
-                            return JobActions.alljobsRejected(err)
-                        }
+                    .catch(err => {
+                        console.log(err);
+                        return JobActions.alljobsRejected(err)
+                    }
+                    )
+            })
+
+    static JobDetailsEpic = (action$) =>
+        action$.ofType(Jobs.JOB_DETAILS)
+            .switchMap(({ payload }) => {
+                return HttpService.get(Path.URL + `/https://jobsicle.mv/?post_type=noo_job&p=13398&json=1${payload}`)
+                    .map((arr) => {
+                        return JobActions.jobsDetailsSuccessfull(arr.response.posts)
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        return JobActions.JobDetailsRejected(err)
+                    }
                     )
             })
 

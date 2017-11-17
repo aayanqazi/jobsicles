@@ -4,12 +4,14 @@ import AuthReducer from './reducers/auth';
 import AuthEpic from "./epic/auth";
 import JobReducer from "./reducers/jobs";
 import JobEpic from "./epic/jobs";
+// import jobDetailsEpic from "./epic/jobDetails";
 
 //combine epic
 const rootEpic = combineEpics(
     AuthEpic.signupEpic,
     AuthEpic.loginEpic,
-    JobEpic.allJobsEpic
+    JobEpic.allJobsEpic,
+    JobEpic.JobDetailsEpic
   );
 
 //combine reducers

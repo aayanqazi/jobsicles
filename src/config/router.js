@@ -54,6 +54,7 @@ import IntroTwo from "../components/IntroSlide2";
 import IntroThree from "../components/IntroSlide3";
 import IntroFour from "../components/IntroSlide4";
 import AllJobs from "../components/AllJobs";
+import JobDetails from "../components/JobDetails";
 
 var RouterNative = () => {
   return (
@@ -68,7 +69,9 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="login" component={Login} />
         <Scene hideNavBar={true} key="getStarted" component={GetStarted} />
         <Scene hideNavBar={true} key="signup" component={Signup} /> */}
-        <Scene hideNavBar={true} key="alljobs" component={AllJobs} />
+        <Scene hideNavBar={true} key="alljobs" component={AllJobs} initial />
+        {/* <Scene hideNavBar={true} key="jobDetails" component={JobDetails} /> */}
+
 
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
         <Scene hideNavBar={true} key="editProfile5" component={EditProfile5} />
@@ -109,9 +112,9 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="jobApps" component={JobApplications} />
         <Scene hideNavBar={true} key="postJob2" component={PostJob2} />
         <Scene hideNavBar={true} key="postJob" component={PostJob} />
-        <Scene hideNavBar={true} key="jobDetails" component={JobDetails} />
         <Scene hideNavBar={true} key="myJobs" component={MyJobs} />
         <Scene hideNavBar={true} key="employee" component={Employee} /> */}
+
       </Stack>
     </Router>
   )

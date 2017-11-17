@@ -24,4 +24,23 @@ export default class JobsActions {
         }
     }
 
+    static JobDetails(payload) {
+        return {
+            type: JobsConstants.JOB_DETAILS,
+            payload: payload
+        }
+    }
+
+    static jobsDetailsSuccessfull(jobDetails) {
+        return {
+            type: JobsConstants.JOB_DETAILS_SUCCESSFUL,
+            payload: jobDetails
+        }
+    }
+    static JobDetailsRejected(error) {
+        return {
+            type: JobsConstants.JOB_DETAILS_REJECTED,
+            payload: error
+        }
+    }
 }

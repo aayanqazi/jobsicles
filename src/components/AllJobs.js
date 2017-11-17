@@ -6,6 +6,7 @@ import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
 import JobActions from "../store/actions/jobs";
 import Loader from "./common/loader";
+import { Actions } from 'react-native-router-flux';
 
 const AllJobsItems = ({ data }) => {
   const styles = {
@@ -49,7 +50,7 @@ const AllJobsItems = ({ data }) => {
 
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-            <Text style={styles.smallText}>{data.item.author.name}</Text>
+            <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.author.name}</Text>
           </View>
 
           <View style={styles.row2Styles}>
