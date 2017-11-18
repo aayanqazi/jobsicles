@@ -13,8 +13,9 @@ export default class JobEpic {
     static allJobsEpic = (action$) =>
         action$.ofType(Jobs.ALL_JOBS)
             .switchMap(({ payload }) => {
-                return HttpService.get(Path.URL + `/get_posts/?post_type=noo_job&count=${payload}`)
+                return HttpService.get(`https://jobsicle.mv/web_Api.php?tokenID=${payload.token}&paged=${payload.count}`)
                     .map((arr) => {
+                        console.log(arr);
                         return JobActions.alljobsSuccessful(arr.response.posts)
                     })
                     .catch(err => {

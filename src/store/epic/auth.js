@@ -12,15 +12,13 @@ export default class AuthEpic {
     static loginEpic = (action$) =>
         action$.ofType(Auth.SIGNIN)
             .switchMap(({ payload }) => {
-                return HttpService.get(Path.URL +`/user/generate_auth_cookie/?username=${payload.username}&password=${payload.password}`)
+                return HttpService.get(Path.URL + `/user/generate_auth_cookie/?username=${payload.username}&password=${payload.password}`)
                     .map((arr) => {
-                        if(arr.response.error)
-                        {
+                        if (arr.response.error) {
                             return AuthActions.signinRejected(arr.response)
                         }
-                        else
-                        {
-                            return AuthActions.signinSuccessful(arr.response)                            
+                        else {
+                            return AuthActions.signinSuccessful(arr.response)
                         }
                     })
             })
@@ -34,8 +32,8 @@ export default class AuthEpic {
                         return HttpService.get(Path.URL + `/user/register/?username=${payload.username}&email=${payload.email}&nonce=${response.nonce}&display_name=${payload.username}&user_pass=${payload.password}&role=${payload.role}`)
                             .map((arr) => {
                                 return AuthActions.signupupSuccessful(arr)
-                            }).catch(err => AuthActions.signupRejected(err)
-                            )
+                            })
+                            .catch(err => AuthActions.signupRejected(err))
                     })
             })
 }

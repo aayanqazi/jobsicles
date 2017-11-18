@@ -31,7 +31,7 @@ class Signup extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.auth.isAuthenticated) {
+    if (newProps.auth.isRegistered) {
       if (newProps.auth.authUser) {
         console.log("(user signed Up)");
       }

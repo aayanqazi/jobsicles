@@ -108,11 +108,23 @@ class MyJobs extends Component {
   }
 
   componentDidMount() {
-    this.makeRemoteRequest();
+    try {
+      AsyncStorage.getItem('user', (err, res) => {
+        var user = JSON.parse(res);
+        this.makeRemoteRequest(user.cookie);
+      })
+    }
+    catch (err) {
+      console.log('error', err)
+    }
+
   }
 
-  makeRemoteRequest = () => {
-    this.props.getJob(this.state.page)
+  makeRemoteRequest = (cookie) => {
+    this.props.getJob({
+      count: this.state.page,
+      token: cookie
+    })
     console.log("props", this.props.getJob)
   }
 
@@ -121,22 +133,23 @@ class MyJobs extends Component {
       page: this.state.page + 1
     }, this.makeRemoteRequest())
   }
-  async componentWillMount() {
-    if (this.props.auth.isAuthenticated) {
-      if (this.props.auth.authUser) {
-        await AsyncStorage.getItem('user', JSON.parse({
-          // isLoggedIn: true,
-          cookie: newProps.auth.authUser.cookie,
-          id: newProps.auth.authUser.user.id,
-        }));
-        console.log("(user logged in)");
-      }
-      // Actions.replace('alljobs');
-    }
-    else if (newProps.auth.isError) {
-      alert('Something Went Wrong !');
-    }
-  }
+  // async componentWillMount() {
+  //   if (this.props.auth.isAuthenticated) {
+  //     if (this.props.auth.authUser) {
+  //       await AsyncStorage.getItem('user', JSON.parse({
+  //         // isLoggedIn: true,
+  //         cookie: newProps.auth.authUser.cookie,
+  //         id: newProps.auth.authUser.user.id,
+  //       }));
+  //       console.log("(user logged in)");
+  //     }
+  //     // Actions.replace('alljobs');
+  //   }
+  //   else if (newProps.auth.isError) {
+  //     alert('Something Went Wrong !');
+  //   }
+  // }
+
   renderFooter = () => {
     if (this.state.loading) return null;
     return (
