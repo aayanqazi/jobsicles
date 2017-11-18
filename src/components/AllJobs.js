@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, Image, FlatList, ActivityIndicator, AsyncStorage } from 'react-native'
 import { ListItem, Right, Container, Content, View, Text } from 'native-base';
 import HeaderSmall from './common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
@@ -113,6 +113,7 @@ class MyJobs extends Component {
 
   makeRemoteRequest = () => {
     this.props.getJob(this.state.page)
+    console.log("props", this.props.getJob)
   }
 
   requestMore = () => {
@@ -120,7 +121,22 @@ class MyJobs extends Component {
       page: this.state.page + 1
     }, this.makeRemoteRequest())
   }
-
+  async componentWillMount() {
+    if (this.props.auth.isAuthenticated) {
+      if (this.props.auth.authUser) {
+        await AsyncStorage.getItem('user', JSON.parse({
+          // isLoggedIn: true,
+          cookie: newProps.auth.authUser.cookie,
+          id: newProps.auth.authUser.user.id,
+        }));
+        console.log("(user logged in)");
+      }
+      // Actions.replace('alljobs');
+    }
+    else if (newProps.auth.isError) {
+      alert('Something Went Wrong !');
+    }
+  }
   renderFooter = () => {
     if (this.state.loading) return null;
     return (
@@ -164,6 +180,7 @@ class MyJobs extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.AuthReducer,
     job: state.JobReducer,
   }
 }

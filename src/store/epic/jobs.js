@@ -8,6 +8,7 @@ import { HttpService } from "../../services/http";
 //** Epic Middlewares For Auth **//
 export default class JobEpic {
 
+    
     // Epic middleware for login
     static allJobsEpic = (action$) =>
         action$.ofType(Jobs.ALL_JOBS)
