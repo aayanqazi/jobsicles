@@ -5,7 +5,9 @@ import HeaderSmall from '../components/common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
 import JobActions from "../store/actions/jobs";
-
+import Loader from "../../assets/animations/loading.json";
+import { DangerZone } from 'expo';
+const { Lottie } = DangerZone;
 
 const JobDetailsItems = ({ data }) => {
 
@@ -155,11 +157,20 @@ const styles = {
 class JobDetails extends Component {
   state = {
     data: {},
-    loading: false
+    loading: true,
+    animation: null,
   }
 
+  _loadAnimationAsync = async () => {
+
+    this.setState(
+      { animation: Loader },
+      this._playAnimation
+    );
+  };
+
   componentWillReceiveProps(newProps) {
-    if (newProps.job.isProcessing) {
+    if (newProps.job.isLoading) {
       this.setState({
         loading: true
       })
@@ -177,7 +188,22 @@ class JobDetails extends Component {
   }
 
   componentWillMount() {
+    this._playAnimation();
     this.makeRemoteRequest(this.props.navigation.state.params.job.jobID);
+  }
+
+  _playAnimation = () => {
+    if (!this.state.animation) {
+      this._loadAnimationAsync();
+    } else {
+      this.animation.reset();
+      this.animation.play();
+    }
+  };
+
+  loaderStart = () => {
+    this.animation.reset();
+    this.animation.play();
   }
 
   makeRemoteRequest = (value) => {
@@ -200,9 +226,27 @@ class JobDetails extends Component {
   // };
 
   render() {
-    console.log('state lalala', this.state)
+    console.log('statet', this.state)
     return (
-      <Container>
+      <Container style={{ backgroundColor: "#fff" }}>
+        {this.state.animation &&
+          <Lottie
+            ref={animation => {
+              this.animation = animation;
+            }}
+            loop={true}
+            style={this.state.loading || this.props.job.isLoading ? {
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              zIndex: 20,
+              flex: 1,
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              alignItems: 'center',
+              justifyContent: 'center'
+            } : { display: 'none' }}
+            source={this.state.animation}
+          />}
         <Content style={{ backgroundColor: "#fff" }}>
           <JobDetailsItems data={this.state.data} />
         </Content >
