@@ -9,6 +9,7 @@ import Loader from "./common/loader";
 import { Actions } from 'react-native-router-flux';
 
 const AllJobsItems = ({ data }) => {
+  console.log("lalala",data)
   const styles = {
     rowStyles: {
       flexDirection: "row",
@@ -46,25 +47,25 @@ const AllJobsItems = ({ data }) => {
     <ListItem>
       <View style={styles.rowStyles}>
         <View style={{ marginLeft: 15 }}>
-          <Text style={styles.text1}>{data.item.title}</Text>
+          <Text style={styles.text1}>{data.item.jobTitle}</Text>
 
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-            <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.author.name}</Text>
+            <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.companyTitle}</Text>
           </View>
 
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-            <Text style={styles.smallText}>MVR 4000 - 5000</Text>
+            <Text style={styles.smallText}>{data.item.salaryRange.toUpperCase()}</Text>
           </View>
 
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-            <Text style={styles.smallText}>Hulhumale</Text>
+            <Text style={styles.smallText}>{data.item.location[0]}</Text>
           </View>
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-            <Text style={styles.smallText}>{data.item.taxonomy_job_type[0].slug}</Text>
+            <Text style={styles.smallText}>{data.item.jobType[0]}</Text>
           </View>
 
         </View>
@@ -108,24 +109,11 @@ class MyJobs extends Component {
   }
 
   componentDidMount() {
-    try {
-      AsyncStorage.getItem('user', (err, res) => {
-        var user = JSON.parse(res);
-        this.makeRemoteRequest(user.cookie);
-      })
-    }
-    catch (err) {
-      console.log('error', err)
-    }
-
+    this.makeRemoteRequest();
   }
 
-  makeRemoteRequest = (cookie) => {
-    this.props.getJob({
-      count: this.state.page,
-      token: cookie
-    })
-    console.log("props", this.props.getJob)
+  makeRemoteRequest = () => {
+    this.props.getJob(this.state.page)
   }
 
   requestMore = () => {
@@ -133,6 +121,7 @@ class MyJobs extends Component {
       page: this.state.page + 1
     }, this.makeRemoteRequest())
   }
+
   // async componentWillMount() {
   //   if (this.props.auth.isAuthenticated) {
   //     if (this.props.auth.authUser) {
@@ -165,7 +154,7 @@ class MyJobs extends Component {
     );
   };
   render() {
-    console.log('state', this.state)
+    console.log('state', this.props)
     return (
       <Container>
         <HeaderSmall
