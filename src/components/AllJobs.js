@@ -9,7 +9,6 @@ import Loader from "./common/loader";
 import { Actions } from 'react-native-router-flux';
 
 const AllJobsItems = ({ data }) => {
-  console.log("lalala",data)
   const styles = {
     rowStyles: {
       flexDirection: "row",
@@ -44,11 +43,10 @@ const AllJobsItems = ({ data }) => {
 
   return (
     // <Content>
-    <ListItem>
+    <ListItem onPress={() => Actions.push('jobDetails', { job: data.item })}>
       <View style={styles.rowStyles}>
         <View style={{ marginLeft: 15 }}>
           <Text style={styles.text1}>{data.item.jobTitle}</Text>
-
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
             <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.companyTitle}</Text>
@@ -71,7 +69,8 @@ const AllJobsItems = ({ data }) => {
         </View>
         <Right>
           <View style={styles.rowStyles}>
-            <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
+            {data.item.attachFile === "" ? null : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
+            }
             <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
           </View>
         </Right>
@@ -154,7 +153,6 @@ class MyJobs extends Component {
     );
   };
   render() {
-    console.log('state', this.props)
     return (
       <Container>
         <HeaderSmall

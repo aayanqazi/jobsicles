@@ -16,29 +16,29 @@ const JobDetailsItems = ({ data }) => {
         rightText="EDIT"
       />
       <Content style={{ backgroundColor: "#fff" }}>
-        <Text style={styles.title}>Admin & Finance Officer</Text>
+        <Text style={styles.title}>{data.jobTitle}</Text>
 
         <View style={styles.rowStyles}>
 
           <View style={{ width: "50%", paddingLeft: 10, }}>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-              <Text style={styles.smallText}>ABC Company Pvt Ltd</Text>
+              <Text style={styles.smallText}>{data.companyTitle}</Text>
             </View>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-              <Text style={styles.smallText}>MVR 4000 - 5000</Text>
+              <Text style={styles.smallText}>{data.salaryRange}</Text>
             </View>
           </View>
 
           <View style={{ width: "50%", paddingLeft: 10, }}>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-              <Text style={styles.smallText}>Hulhumale</Text>
+              <Text style={styles.smallText}>{data.location ? data.location[0] : "-"}</Text>
             </View>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-              <Text style={styles.smallText}>Full Time</Text>
+              <Text style={styles.smallText}>{data.jobType ? data.jobType[0] : "-"}</Text>
             </View>
           </View>
 
@@ -47,9 +47,9 @@ const JobDetailsItems = ({ data }) => {
         <ListItem>
           <Body>
             <View>
-              <Text style={styles.smallText}>Ref: 5D-JB2017</Text>
-              <Text style={styles.smallText}>No. of vacancies: 03</Text>
-              <Text style={styles.smallText}>Qualifications: GCE Olevel</Text>
+              <Text style={styles.smallText}>Ref: {data.jobReferenceNo ? data.jobReferenceNo : '-'}</Text>
+              <Text style={styles.smallText}>No. of vacancies: {data.job_No_vacancies ? data.job_No_vacancies : "-"}</Text>
+              <Text style={styles.smallText}>Qualifications: {data.jobQualification ? data.jobQualification[0] : "-"}</Text>
             </View>
           </Body>
           <Right>
@@ -65,12 +65,12 @@ const JobDetailsItems = ({ data }) => {
 
         <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
           <Text style={styles.smallText}>
-            Lorem ipsum sit amet asd comet allez vous Lorem ipsum sit amet asd comet allez vous Lorem ipsum sit amet asd comet allez vous Lorem ipsum sit amet asd comet allez vous Lorem ipsum sit amet asd comet allez vous Lorem ipsum sit amet asd comet allez vous
-            </Text>
-          <View style={{ marginTop: 15 }}>
+            {data.jobDescription}
+          </Text>
+          {/* <View style={{ marginTop: 15 }}>
             <Text style={styles.smallText}>Lorem ipsum sit amet asd comet allez vous</Text>
             <Text style={styles.smallText}>Lorem Lorem ipsum sit amet asd comet allez vous </Text>
-          </View>
+          </View> */}
         </View>
         <View style={styles.pdfBox}>
           <Text style={{ color: "#fff", marginTop: 50 }}>PDF VIEWER</Text>
@@ -154,8 +154,7 @@ const styles = {
 
 class JobDetails extends Component {
   state = {
-    data: [],
-    page: 0,
+    data: {},
     loading: false
   }
 
@@ -167,9 +166,8 @@ class JobDetails extends Component {
     }
     if (newProps.job.isDone) {
       this.setState({
-        data: this.state.page === 0 ? newProps.job.JobDetails : this.state.data.concat(newProps.job.JobDetails)
+        data: newProps.job.jobDetails
       })
-      console.log("data", this.state.data)
     }
     else {
       this.setState({
@@ -179,18 +177,11 @@ class JobDetails extends Component {
   }
 
   componentWillMount() {
-    this.makeRemoteRequest(this.props.jobDetails.post);
+    this.makeRemoteRequest(this.props.navigation.state.params.job.jobID);
   }
 
   makeRemoteRequest = (value) => {
     this.props.jobDetails(value)
-    // console.log("this.props.jobDetails", this.props.jobDetails())
-  }
-
-  requestMore = () => {
-    this.setState({
-      page: this.state.page + 1
-    }, this.makeRemoteRequest())
   }
 
   // renderFooter = () => {
@@ -207,12 +198,13 @@ class JobDetails extends Component {
   //     </View>
   //   );
   // };
+
   render() {
-    console.log('state', this.props)
+    console.log('state lalala', this.state)
     return (
       <Container>
         <Content style={{ backgroundColor: "#fff" }}>
-          <JobDetailsItems />
+          <JobDetailsItems data={this.state.data} />
         </Content >
       </Container >
     )
@@ -227,7 +219,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    jobDetails: () => dispatch(JobActions.JobDetails())
+    jobDetails: (value) => dispatch(JobActions.JobDetails(value))
   }
 }
 

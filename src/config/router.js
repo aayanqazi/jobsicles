@@ -70,7 +70,7 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="getStarted" component={GetStarted} />
         <Scene hideNavBar={true} key="signup" component={Signup} /> */}
         <Scene hideNavBar={true} key="alljobs" component={AllJobs} />
-        {/* <Scene hideNavBar={true} key="jobDetails" component={JobDetails} /> */}
+        <Scene hideNavBar={true} key="jobDetails" component={JobDetails} />
 
 
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
