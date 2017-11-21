@@ -15,7 +15,8 @@ export default class JobEpic {
             .switchMap(({ payload }) => {
                 return HttpService.get(`https://jobsicle.mv/web_Api.php?tokenID=123&paged=${payload}`)
                     .map((arr) => {
-                        if (arr.response) {
+                        console.log(arr);
+                        if (arr.response.message !== "no record found") {
                             return JobActions.alljobsSuccessful(arr.response.record)
                         }
                         else {

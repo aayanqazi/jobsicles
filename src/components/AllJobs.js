@@ -69,7 +69,7 @@ const AllJobsItems = ({ data }) => {
         </View>
         <Right>
           <View style={styles.rowStyles}>
-            {data.item.attachFile === "" ? null : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
+            {data.item.attachFile === "" ? <View></View> : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
             }
             <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
           </View>
@@ -170,7 +170,7 @@ class MyJobs extends Component {
             refreshing={this.props.job.isProcessing}
             ListFooterComponent={this.renderFooter}
             onEndReached={this.requestMore}
-          /> : null}
+          /> : <View></View>}
         </Content >
         <FooterNav2 />
       </Container >

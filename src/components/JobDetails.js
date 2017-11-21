@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, Image, FlatList, ActivityIndicator, WebView } from 'react-native'
 import { ListItem, Right, Body, Container, Content, View, Text, Icon } from 'native-base';
 import HeaderSmall from '../components/common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
 import JobActions from "../store/actions/jobs";
 import Loader from "../../assets/animations/loading.json";
-import { DangerZone } from 'expo';
+import { DangerZone, WebBrowser } from 'expo';
 const { Lottie } = DangerZone;
 
 const JobDetailsItems = ({ data }) => {
-
+  var url;
+  data.attachFile ? url = data.attachFile.replace(/[\"\]']+/g, '').replace(/[\[\]']+/g, '') : null;
+  console.log("allalalal", `https://docs.google.com/gview?embedded=true&url=https://jobsicle.mv/wp-content/uploads/jobmonster/${url}`)
   return (
     <Container style={{ backgroundColor: "#fff" }}>
       <HeaderSmall
@@ -74,10 +76,16 @@ const JobDetailsItems = ({ data }) => {
             <Text style={styles.smallText}>Lorem Lorem ipsum sit amet asd comet allez vous </Text>
           </View> */}
         </View>
-        <View style={styles.pdfBox}>
+        {/* <View style={styles.pdfBox}>
           <Text style={{ color: "#fff", marginTop: 50 }}>PDF VIEWER</Text>
-        </View>
-      </Content >
+        </View> */}
+        {data.attachFile ? <WebView
+          source={{ uri: `https://docs.google.com/gview?embedded=true&url=https://jobsicle.mv/wp-content/uploads/jobmonster/${url}` }}
+          style={{ marginTop: 20, height: 150, }}
+        /> : <View></View>
+        }
+      </Content>
+
       <View style={styles.stickyBar}>
         <View style={styles.stickyBarLeft}>
           <Text style={[styles.stickyBarText, { color: "#000" }]}>APPLY NOW</Text>
@@ -210,20 +218,6 @@ class JobDetails extends Component {
     this.props.jobDetails(value)
   }
 
-  // renderFooter = () => {
-  //   if (this.state.loading) return null;
-  //   return (
-  //     <View
-  //       style={{
-  //         paddingVertical: 20,
-  //         borderTopWidth: 1,
-  //         borderColor: "#CED0CE"
-  //       }}
-  //     >
-  //       <ActivityIndicator animating size="small" />
-  //     </View>
-  //   );
-  // };
 
   render() {
     console.log('statet', this.state)
