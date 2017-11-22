@@ -62,7 +62,6 @@ class Login extends Component {
       Actions.replace('alljobs');
     }
     else if (newProps.auth.isError) {
-      alert('Something Went Wrong !');
       this.setState({
         usernameError: true,
         passwordError: true,

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image ,Dimensions} from 'react-native';
 import { Container, View, Text, Content } from 'native-base';
 import Button from './common/Button';
 import {FontAwesome} from "@expo/vector-icons"
 import {Actions} from "react-native-router-flux";
+var { height, width } = Dimensions.get('window');
 
 export default class IntroSlide1 extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: "#f4f5f6" }}>
-        <Content style={{ marginHorizontal: 15, paddingTop: 50 }}>
+        <Content style={{ marginHorizontal: 15, paddingTop: 50 ,width}}>
           <Text style={styles.title}>Easy Manage!</Text>
           <Image style={styles.img} resizeMode="contain" source={require('../../assets/icons/easymanage.png')} />
           <Text style={styles.title}>Yo ho ho!</Text>
@@ -20,9 +21,9 @@ export default class IntroSlide1 extends Component {
           </View>
         </Content>
         <View style={styles.sliderIcons}>
-           <FontAwesome onPress={()=>Actions.replace('splashOne')} style={styles.icon} name="circle-o" />
-           <FontAwesome onPress={()=>Actions.replace('splashTwo')} style={styles.icon} name="circle-o" />
-           <FontAwesome onPress={()=>Actions.replace('splashThree')} style={styles.icon} name="circle-o" />
+           <FontAwesome style={styles.icon} name="circle-o" />
+           <FontAwesome style={styles.icon} name="circle-o" />
+           <FontAwesome style={styles.icon} name="circle-o" />
            <FontAwesome style={styles.icon} color='#344d5e' name="circle" />
         </View>
       </Container>

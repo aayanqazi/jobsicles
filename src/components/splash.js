@@ -21,7 +21,7 @@ export default class Splash extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <Image style={styles.image} source={require("../../assets/icons/splash_logo.png")} />
+      <Image resizeMode="contain" style={styles.image} source={require("../../assets/icons/splash_logo.png")} />
       <View style={styles.content}>
       <Image style={styles.flag} source={require("../../assets/icons/flag.png")} />
       <Text style={styles.text}>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image:{
-    width:400,
+    width:'100%',
     height:174
   },
   text:{
