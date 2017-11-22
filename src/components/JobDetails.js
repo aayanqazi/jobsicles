@@ -60,7 +60,7 @@ const JobDetailsItems = ({ data }) => {
             <View style={styles.row2Styles}>
               <View style={{ alignItems: "center" }}>
                 <Image resizeMode="contain" style={{ height: 25, width: 25 }} source={require('../../assets/icons/job_expiring.png')} />
-                <Text style={{ fontSize: 10, marginTop: 5 }}>{new Date(parseInt(data.JobexpiresDate)).toLocaleString('en-US',{day: 'numeric'})} {new Date(parseInt(data.JobexpiresDate)).toLocaleString('en-US',{month: 'short'})} {new Date(parseInt(data.JobexpiresDate)).toLocaleString('en-US',{year: 'numeric'})}</Text>
+                <Text style={{ fontSize: 10, marginTop: 5 }}>{new Date(parseInt(data.JobexpiresDate)*1000).toLocaleString('en-US',{day: 'numeric'})} {new Date(parseInt(data.JobexpiresDate)*1000).toLocaleString('en-US',{month: 'short'})} {new Date(parseInt(data.JobexpiresDate)*1000).toLocaleString('en-US',{year: 'numeric'})}</Text>
               </View>
               <Icon onPress={() => Actions.push('employee', { jobId: data.jobID })} name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
             </View>
@@ -81,7 +81,8 @@ const JobDetailsItems = ({ data }) => {
         </View> */}
         {data.attachFile ? <WebView
           source={{ uri: `https://docs.google.com/gview?embedded=true&url=https://jobsicle.mv/wp-content/uploads/jobmonster/${url}` }}
-          style={{ marginTop: 20, height: 150, }}
+          style={{ marginTop: 20,height:500}}
+          automaticallyAdjustContentInsets={true}
         /> : <View></View>
         }
       </Content>
