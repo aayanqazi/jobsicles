@@ -8,11 +8,11 @@ import JobActions from "../store/actions/jobs";
 import Loader from "../../assets/animations/loading.json";
 import { DangerZone, WebBrowser } from 'expo';
 const { Lottie } = DangerZone;
+import { Actions } from "react-native-router-flux";
 
 const JobDetailsItems = ({ data }) => {
   var url;
   data.attachFile ? url = data.attachFile.replace(/[\"\]']+/g, '').replace(/[\[\]']+/g, '') : null;
-  console.log("allalalal", `https://docs.google.com/gview?embedded=true&url=https://jobsicle.mv/wp-content/uploads/jobmonster/${url}`)
   return (
     <Container style={{ backgroundColor: "#fff" }}>
       <HeaderSmall
@@ -60,9 +60,9 @@ const JobDetailsItems = ({ data }) => {
             <View style={styles.row2Styles}>
               <View style={{ alignItems: "center" }}>
                 <Image resizeMode="contain" style={{ height: 25, width: 25 }} source={require('../../assets/icons/job_expiring.png')} />
-                <Text style={{ fontSize: 10, marginTop: 5 }}>07 AUG 2017</Text>
+                <Text style={{ fontSize: 10, marginTop: 5 }}>{new Date(parseInt(data.JobexpiresDate)).toLocaleString('en-US',{day: 'numeric'})} {new Date(parseInt(data.JobexpiresDate)).toLocaleString('en-US',{month: 'short'})} {new Date(parseInt(data.JobexpiresDate)).toLocaleString('en-US',{year: 'numeric'})}</Text>
               </View>
-              <Icon name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
+              <Icon onPress={() => Actions.push('employee', { jobId: data.jobID })} name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
             </View>
           </Right>
         </ListItem>

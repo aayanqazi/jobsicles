@@ -10,7 +10,8 @@ export default class HeaderSmall extends Component {
           {
             this.props.leftIcon ? <Icon name={this.props.leftIconName} /> : null
           }
-          <Text style={styles.leftText}>{this.props.leftText}</Text>
+          {this.props.leftAction ? <Text onPress={this.props.leftAction} style={styles.leftText}>{this.props.leftText}</Text> :
+            <Text style={styles.leftText}>{this.props.leftText}</Text>}
         </Left>
         <Body>
           <Text style={styles.headerText}>{this.props.headerText}</Text>

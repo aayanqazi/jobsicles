@@ -55,22 +55,24 @@ import IntroThree from "../components/IntroSlide3";
 import IntroFour from "../components/IntroSlide4";
 import AllJobs from "../components/AllJobs";
 import JobDetails from "../components/JobDetails";
+import Employer from "../components/Employer";
 
 var RouterNative = () => {
   return (
     <Router>
       <Stack key="root">
         {/*Job Seeker */}
-        <Scene hideNavBar={true} key="splash" component={Splash} />
+        {/* <Scene hideNavBar={true} key="splash" component={Splash} />
         <Scene hideNavBar={true} key="splashOne" component={Intro} />
         <Scene hideNavBar={true} key="splashTwo" component={IntroTwo} />
         <Scene hideNavBar={true} key="splashThree" component={IntroThree} />
         <Scene hideNavBar={true} key="splashFour" component={IntroFour} />
         <Scene hideNavBar={true} key="login" component={Login} />
         <Scene hideNavBar={true} key="getStarted" component={GetStarted} />
-        <Scene hideNavBar={true} key="signup" component={Signup} />
+        <Scene hideNavBar={true} key="signup" component={Signup} /> */}
         <Scene hideNavBar={true} key="alljobs" component={AllJobs} />
         <Scene hideNavBar={true} key="jobDetails" component={JobDetails} />
+        <Scene hideNavBar={true} key="employee" component={Employer} />
 
 
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
