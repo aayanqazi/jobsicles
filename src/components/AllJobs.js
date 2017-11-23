@@ -85,7 +85,7 @@ const AllJobsItems = ({ data }) => {
 class MyJobs extends Component {
   state = {
     data: [],
-    page: 0,
+    page: 1,
     loading: false
   }
 
@@ -107,11 +107,12 @@ class MyJobs extends Component {
     }
   }
 
-  componentDidMount() {
-    this.makeRemoteRequest();
-  }
+  // componentWillMount() {
+  //   this.makeRemoteRequest();
+  // }
 
   makeRemoteRequest = () => {
+    console.log('lalalalalala')
     this.props.getJob(this.state.page)
   }
 
@@ -161,7 +162,7 @@ class MyJobs extends Component {
           rightIconName="ios-options"
         />
         <Content style={{ backgroundColor: "#fff" }}>
-          {this.state.data.length !== 0 ? <FlatList
+          <FlatList
             data={this.state.data}
             renderItem={(items) => (
               <AllJobsItems data={items} />
@@ -170,7 +171,8 @@ class MyJobs extends Component {
             refreshing={this.props.job.isProcessing}
             ListFooterComponent={this.renderFooter}
             onEndReached={this.requestMore}
-          /> : <View></View>}
+
+          /> 
         </Content >
         <FooterNav2 />
       </Container >
