@@ -96,8 +96,10 @@ class MyJobs extends Component {
       })
     }
     if (newProps.job.isDone) {
+      console.log('lalalalalala')      
       this.setState({
-        data: this.state.page === 0 ? newProps.job.alljobs : this.state.data.concat(newProps.job.alljobs)
+        data: this.state.page === 0 ? newProps.job.alljobs : this.state.data.concat(newProps.job.alljobs),
+        page:this.state.page+1
       })
     }
     else {
@@ -107,19 +109,21 @@ class MyJobs extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   this.makeRemoteRequest();
-  // }
+  componentWillMount() {
+    this.makeRemoteRequest();
+  }
 
   makeRemoteRequest = () => {
-    console.log('lalalalalala')
     this.props.getJob(this.state.page)
   }
 
   requestMore = () => {
-    this.setState({
-      page: this.state.page + 1
-    }, this.makeRemoteRequest())
+    setTimeout(
+      ()=>{
+        this.makeRemoteRequest()
+      },3500
+    )
+   
   }
 
   // async componentWillMount() {
@@ -170,7 +174,8 @@ class MyJobs extends Component {
             keyExtractor={(item, index) => index}
             refreshing={this.props.job.isProcessing}
             ListFooterComponent={this.renderFooter}
-            onEndReached={this.requestMore}
+            onEndReachedThreshold={100}
+            onEndReached={()=>this.requestMore()}
 
           /> 
         </Content >

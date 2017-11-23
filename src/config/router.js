@@ -53,7 +53,7 @@ import Intro from "../components/IntroSlide1";
 import AllJobs from "../components/AllJobs";
 import JobDetails from "../components/JobDetails";
 import Employer from "../components/Employer";
-import ApplyJob from "../components/Apply";
+// import ApplyJob from "../components/Apply";
 
 var RouterNative = () => {
   return (
@@ -65,10 +65,10 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="login" component={Login} />
         <Scene hideNavBar={true} key="getStarted" component={GetStarted} />
         <Scene hideNavBar={true} key="signup" component={Signup} /> */}
-        {/* <Scene hideNavBar={true} key="alljobs" component={AllJobs} />
+        <Scene hideNavBar={true} key="alljobs" component={AllJobs} />
         <Scene hideNavBar={true} key="jobDetails" component={JobDetails} />
-        <Scene hideNavBar={true} key="employee" component={Employer} /> */}
-        <Scene hideNavBar={true} key="apply" component={ApplyJob} />
+        <Scene hideNavBar={true} key="employee" component={Employer} />
+        {/* <Scene hideNavBar={true} key="apply" component={ApplyJob} /> */}
 
 
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
