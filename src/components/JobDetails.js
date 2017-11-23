@@ -31,18 +31,18 @@ const JobDetailsItems = ({ data }) => {
             </View>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-              <Text style={styles.smallText}>{data.salaryRange}</Text>
+              <Text style={styles.smallText}>{data.salaryRange ? data.salaryRange.toUpperCase() : '-'}</Text>
             </View>
           </View>
 
           <View style={{ width: "50%", paddingLeft: 10, }}>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-              <Text style={styles.smallText}>{data.location ? data.location[0] : "-"}</Text>
+              <Text style={styles.smallText}>{data.location ? upperCase(data.location[0]) : "-"}</Text>
             </View>
             <View style={styles.row2Styles}>
               <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-              <Text style={styles.smallText}>{data.jobType ? data.jobType[0] : "-"}</Text>
+              <Text style={styles.smallText}>{data.jobType ? upperCase(data.jobType[0]) : "-"}</Text>
             </View>
           </View>
 
@@ -53,14 +53,14 @@ const JobDetailsItems = ({ data }) => {
             <View>
               <Text style={styles.smallText}>Ref: {data.jobReferenceNo ? data.jobReferenceNo : '-'}</Text>
               <Text style={styles.smallText}>No. of vacancies: {data.job_No_vacancies ? data.job_No_vacancies : "-"}</Text>
-              <Text style={styles.smallText}>Qualifications: {data.jobQualification ? data.jobQualification[0] : "-"}</Text>
+              <Text style={styles.smallText}>Qualifications: {data.jobQualification ? upperCase(data.jobQualification[0]) : "-"}</Text>
             </View>
           </Body>
           <Right>
             <View style={styles.row2Styles}>
               <View style={{ alignItems: "center" }}>
                 <Image resizeMode="contain" style={{ height: 25, width: 25 }} source={require('../../assets/icons/job_expiring.png')} />
-                <Text style={{ fontSize: 10, marginTop: 5 }}>{new Date(parseInt(data.JobexpiresDate)*1000).toLocaleString('en-US',{day: 'numeric'})} {new Date(parseInt(data.JobexpiresDate)*1000).toLocaleString('en-US',{month: 'short'})} {new Date(parseInt(data.JobexpiresDate)*1000).toLocaleString('en-US',{year: 'numeric'})}</Text>
+                <Text style={{ fontSize: 10, marginTop: 5 }}>{new Date(parseInt(data.JobexpiresDate) * 1000).toLocaleString('en-US', { day: 'numeric' })} {new Date(parseInt(data.JobexpiresDate) * 1000).toLocaleString('en-US', { month: 'short' })} {new Date(parseInt(data.JobexpiresDate) * 1000).toLocaleString('en-US', { year: 'numeric' })}</Text>
               </View>
               <Icon onPress={() => Actions.push('employee', { jobId: data.jobID })} name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
             </View>
@@ -81,7 +81,7 @@ const JobDetailsItems = ({ data }) => {
         </View> */}
         {data.attachFile ? <WebView
           source={{ uri: `https://docs.google.com/gview?embedded=true&url=https://jobsicle.mv/wp-content/uploads/jobmonster/${url}` }}
-          style={{ marginTop: 20,height:500}}
+          style={{ marginTop: 20, height: 500 }}
           automaticallyAdjustContentInsets={true}
         /> : <View></View>
         }
@@ -100,6 +100,10 @@ const JobDetailsItems = ({ data }) => {
       </View>
     </Container >
   )
+}
+
+const upperCase = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 const styles = {
