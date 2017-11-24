@@ -51,7 +51,14 @@ export default class Dropdown2 extends Component {
           >
             <Item label={this.props.item1} value="key0" />
             <Item label={this.props.item2} value="key1" />
-            <Item label={this.props.item2} value="key2" />
+            <Item label={this.props.item3} value="key2" />
+            <Item label={this.props.item4} value="key3" />
+            <Item label={this.props.item5} value="key4" />
+            <Item label={this.props.item6} value="key5" />
+            <Item label={this.props.item7} value="key6" />
+            <Item label={this.props.item8} value="key7" />
+            <Item label={this.props.item9} value="key8" />
+
           </Picker>
         </View>
       </View>

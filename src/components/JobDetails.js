@@ -109,6 +109,8 @@ const upperCase = (string) => {
 const styles = {
   stickyBar: {
     flexDirection: "row",
+    position:'absolute',
+    bottom:0
   },
   stickyBarLeft: {
     width: "65%",
