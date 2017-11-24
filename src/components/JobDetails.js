@@ -9,10 +9,12 @@ import Loader from "../../assets/animations/loading.json";
 import { DangerZone, WebBrowser } from 'expo';
 const { Lottie } = DangerZone;
 import { Actions } from "react-native-router-flux";
+import moment from "moment";
 
 const JobDetailsItems = ({ data }) => {
   var url;
   data.attachFile ? url = data.attachFile.replace(/[\"\]']+/g, '').replace(/[\[\]']+/g, '') : null;
+  console.log(moment.unix(data.JobexpiresDate).format("DD/MMM/YYYY"))
   return (
     <Container style={{ backgroundColor: "#fff" }}>
       <HeaderSmall
@@ -60,7 +62,7 @@ const JobDetailsItems = ({ data }) => {
             <View style={styles.row2Styles}>
               <View style={{ alignItems: "center" }}>
                 <Image resizeMode="contain" style={{ height: 25, width: 25 }} source={require('../../assets/icons/job_expiring.png')} />
-                <Text style={{ fontSize: 10, marginTop: 5 }}>{new Date(parseInt(data.JobexpiresDate) * 1000).toLocaleString('en-US', { day: 'numeric' })} {new Date(parseInt(data.JobexpiresDate) * 1000).toLocaleString('en-US', { month: 'short' })} {new Date(parseInt(data.JobexpiresDate) * 1000).toLocaleString('en-US', { year: 'numeric' })}</Text>
+                <Text style={{ fontSize: 10, marginTop: 5 }}>{moment.unix(data.JobexpiresDate).format("DD/MMM/YYYY")}</Text>
               </View>
               <Icon onPress={() => Actions.push('employee', { jobId: data.jobID })} name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
             </View>
