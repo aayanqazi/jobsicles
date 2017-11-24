@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, FlatList, ActivityIndicator, AsyncStorage } from 'react-native'
-import { ListItem, Right, Container, Content, View, Text } from 'native-base';
+import { ListItem, Right, Container, Content, View, Text, List ,Left} from 'native-base';
 import HeaderSmall from './common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
@@ -44,8 +44,34 @@ const AllJobsItems = ({ data }) => {
   return (
     // <Content>
     <ListItem onPress={() => Actions.push('jobDetails', { job: data.item })}>
+    <Left>
       <View style={styles.rowStyles}>
         <View style={{ marginLeft: 15 }}>
+          <Text style={styles.text1}>
+            {data.item.jobTitle}
+          </Text>
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
+            <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.companyTitle}</Text>
+          </View>
+
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
+            <Text style={styles.smallText}>{data.item.salaryRange.toUpperCase()}</Text>
+          </View>
+
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
+            <Text style={styles.smallText}>{data.item.location[0]}</Text>
+          </View>
+
+          <View style={styles.row2Styles}>
+            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
+            <Text style={styles.smallText}>{data.item.jobType[0]}</Text>
+          </View>
+        </View>
+
+        {/* <View style={{ marginLeft: 15 }}>
           <Text style={styles.text1}>{data.item.jobTitle}</Text>
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
@@ -73,11 +99,17 @@ const AllJobsItems = ({ data }) => {
             }
             <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
           </View>
-        </Right>
-
+        </Right> */}
       </View>
+      </Left>
+      <Right>
+        <View style={styles.rowStyles}>
+          {data.item.attachFile === "" ? <View></View> : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
+          }
+          <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
+        </View>
+      </Right>
     </ListItem>
-
   )
 }
 
@@ -96,10 +128,10 @@ class MyJobs extends Component {
       })
     }
     if (newProps.job.isDone) {
-      console.log('lalalalalala')      
+      console.log('lalalalalala')
       this.setState({
         data: this.state.page === 0 ? newProps.job.alljobs : this.state.data.concat(newProps.job.alljobs),
-        page:this.state.page+1
+        page: this.state.page + 1
       })
     }
     else {
@@ -119,11 +151,11 @@ class MyJobs extends Component {
 
   requestMore = () => {
     setTimeout(
-      ()=>{
+      () => {
         this.makeRemoteRequest()
-      },3500
+      }, 1500
     )
-   
+
   }
 
   // async componentWillMount() {
@@ -158,6 +190,7 @@ class MyJobs extends Component {
     );
   };
   render() {
+    console.log(this.state)
     return (
       <Container>
         <HeaderSmall
@@ -171,13 +204,18 @@ class MyJobs extends Component {
             renderItem={(items) => (
               <AllJobsItems data={items} />
             )}
+            removeClippedSubviews={false}
             keyExtractor={(item, index) => index}
             refreshing={this.props.job.isProcessing}
             ListFooterComponent={this.renderFooter}
-            onEndReachedThreshold={100}
-            onEndReached={()=>this.requestMore()}
-
-          /> 
+            onEndReached={() => this.requestMore()}
+          />
+          {/* <List
+            dataArray={this.state.data}
+            renderRow={(items) => (
+              <AllJobsItems data={items} />
+            )}
+          /> */}
         </Content >
         <FooterNav2 />
       </Container >
