@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, FlatList, ActivityIndicator, AsyncStorage } from 'react-native'
-import { ListItem, Right, Container, Content, View, Text, List ,Left} from 'native-base';
+import { ListItem, Right, Container, Content, View, Text, List, Left } from 'native-base';
 import HeaderSmall from './common/HeaderSmall';
 import FooterNav2 from './common/FooterNav2';
 import { connect } from 'react-redux'
@@ -44,34 +44,34 @@ const AllJobsItems = ({ data }) => {
   return (
     // <Content>
     <ListItem onPress={() => Actions.push('jobDetails', { job: data.item })}>
-    <Left>
-      <View style={styles.rowStyles}>
-        <View style={{ marginLeft: 15 }}>
-          <Text style={styles.text1}>
-            {data.item.jobTitle}
-          </Text>
-          <View style={styles.row2Styles}>
-            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
-            <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.companyTitle}</Text>
+      <Left>
+        <View style={styles.rowStyles}>
+          <View style={{ marginLeft: 15 }}>
+            <Text style={styles.text1}>
+              {data.item.jobTitle}
+            </Text>
+            <View style={styles.row2Styles}>
+              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
+              <Text style={styles.smallText} onPress={() => Actions.jobDetails()}>{data.item.companyTitle}</Text>
+            </View>
+
+            <View style={styles.row2Styles}>
+              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
+              <Text style={styles.smallText}>{data.item.salaryRange.toUpperCase()}</Text>
+            </View>
+
+            <View style={styles.row2Styles}>
+              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
+              <Text style={styles.smallText}>{data.item.location[0]}</Text>
+            </View>
+
+            <View style={styles.row2Styles}>
+              <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
+              <Text style={styles.smallText}>{data.item.jobType[0]}</Text>
+            </View>
           </View>
 
-          <View style={styles.row2Styles}>
-            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_salary.png')} />
-            <Text style={styles.smallText}>{data.item.salaryRange.toUpperCase()}</Text>
-          </View>
-
-          <View style={styles.row2Styles}>
-            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_location.png')} />
-            <Text style={styles.smallText}>{data.item.location[0]}</Text>
-          </View>
-
-          <View style={styles.row2Styles}>
-            <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_type.png')} />
-            <Text style={styles.smallText}>{data.item.jobType[0]}</Text>
-          </View>
-        </View>
-
-        {/* <View style={{ marginLeft: 15 }}>
+          {/* <View style={{ marginLeft: 15 }}>
           <Text style={styles.text1}>{data.item.jobTitle}</Text>
           <View style={styles.row2Styles}>
             <Image resizeMode="contain" style={styles.smallImage} source={require('../../assets/icons/job_employer.png')} />
@@ -100,7 +100,7 @@ const AllJobsItems = ({ data }) => {
             <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
           </View>
         </Right> */}
-      </View>
+        </View>
       </Left>
       <Right>
         <View style={styles.rowStyles}>
@@ -150,6 +150,7 @@ class MyJobs extends Component {
   }
 
   requestMore = () => {
+    // console.log('ON Last')
     setTimeout(
       () => {
         this.makeRemoteRequest()
@@ -199,23 +200,20 @@ class MyJobs extends Component {
           rightIconName="ios-options"
         />
         <Content style={{ backgroundColor: "#fff" }}>
-          <FlatList
-            data={this.state.data}
-            renderItem={(items) => (
-              <AllJobsItems data={items} />
-            )}
-            removeClippedSubviews={false}
-            keyExtractor={(item, index) => index}
-            refreshing={this.props.job.isProcessing}
-            ListFooterComponent={this.renderFooter}
-            onEndReached={() => this.requestMore()}
-          />
-          {/* <List
-            dataArray={this.state.data}
-            renderRow={(items) => (
-              <AllJobsItems data={items} />
-            )}
-          /> */}
+          {this.state.data.length === 0 ? null :
+            <FlatList
+              data={this.state.data}
+              renderItem={(items) => (
+                <AllJobsItems data={items} />
+              )}
+              removeClippedSubviews={false}
+              keyExtractor={(item, index) => index}
+              refreshing={this.props.job.isProcessing}
+              ListFooterComponent={this.renderFooter}
+              onEndReached={this.requestMore}
+              onEndReachedThreshold={1}
+            />
+          }
         </Content >
         <FooterNav2 />
       </Container >

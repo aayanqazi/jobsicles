@@ -10,6 +10,7 @@ import { DangerZone, WebBrowser } from 'expo';
 const { Lottie } = DangerZone;
 import { Actions } from "react-native-router-flux";
 import moment from "moment";
+import { FontAwesome } from "@expo/vector-icons"
 
 const JobDetailsItems = ({ data }) => {
   var url;
@@ -64,7 +65,7 @@ const JobDetailsItems = ({ data }) => {
                 <Image resizeMode="contain" style={{ height: 25, width: 25 }} source={require('../../assets/icons/job_expiring.png')} />
                 <Text style={{ fontSize: 10, marginTop: 5 }}>{moment.unix(data.JobexpiresDate).format("DD/MMM/YYYY")}</Text>
               </View>
-              <Icon onPress={() => Actions.push('employee', { jobId: data.jobID })} name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
+              <Icon onPress={() => Actions.push('employee', { jobId: data.employerID })} name="md-more" style={{ fontSize: 30, marginLeft: 30, marginTop: -20 }} />
             </View>
           </Right>
         </ListItem>
@@ -114,6 +115,11 @@ const styles = {
     position:'absolute',
     bottom:0
   },
+  icon: {
+    fontSize: 16,
+    paddingLeft: 5
+  },
+
   stickyBarLeft: {
     width: "65%",
     paddingVertical: 15,
