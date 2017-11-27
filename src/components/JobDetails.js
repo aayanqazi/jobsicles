@@ -12,7 +12,7 @@ import { Actions } from "react-native-router-flux";
 import moment from "moment";
 import { FontAwesome } from "@expo/vector-icons"
 
-const JobDetailsItems = ({ data }) => {
+const JobDetailsItems = ({ data ,save}) => {
   var url;
   data.attachFile ? url = data.attachFile.replace(/[\"\]']+/g, '').replace(/[\[\]']+/g, '') : null;
   console.log(moment.unix(data.JobexpiresDate).format("DD/MMM/YYYY"))
@@ -96,7 +96,7 @@ const JobDetailsItems = ({ data }) => {
         </View>
         <View style={styles.stickyBarRight}>
           <View style={{ alignSelf: "center", flexDirection: "row", alignItems: "center" }}>
-            <Text style={styles.stickyBarText}>Save</Text>
+            <Text style={styles.stickyBarText} onPress={()=>save()}>Save</Text>
             <Image resizeMode="contain" style={{ width: 10, height: 10, marginHorizontal: 5 }} source={require('../../assets/icons/notsaved_small.png')} />
           </View>
         </View>
@@ -233,7 +233,9 @@ class JobDetails extends Component {
     this.props.jobDetails(value)
   }
 
-
+  savedJob = () => {
+    fetch(`https://jobsicle.mv/api.php?action=bookmark_jobs&tokenID=123&jobID=${this.state.jobID}&userID=5268`)
+  }
   render() {
     console.log('statet', this.state)
     return (
@@ -257,7 +259,7 @@ class JobDetails extends Component {
             source={this.state.animation}
           />}
         <Content style={{ backgroundColor: "#fff" }}>
-          <JobDetailsItems data={this.state.data} />
+          <JobDetailsItems data={this.state.data} save={this.savedJob}/>
         </Content >
       </Container >
     )

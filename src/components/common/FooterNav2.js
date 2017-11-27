@@ -10,11 +10,11 @@ export default class FooterNav2 extends Component {
           <Image resizeMode="contain" style={{ width: 22, height: 22 }} source={require('../../../assets/icons/jssearchgray.png')} />
           <Text uppercase={true} style={styles.textStyles}>SEARCH</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={.8} style={styles.btn}>
+        <TouchableOpacity activeOpacity={.8} style={styles.btn} onPress={()=>this.props.jobsRoute()}>
           <Image resizeMode="contain" style={{ width: 22, height: 22 }} source={require('../../../assets/icons/emp_myjobsgray.png')} />
           <Text uppercase={true} style={styles.textStyles}>JOBS</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={.8} style={styles.btn}>
+        <TouchableOpacity activeOpacity={.8} style={styles.btn} onPress={this.props.activityRoute?()=>this.props.activityRoute():null}>
           <Image resizeMode="contain" style={{ width: 22, height: 22 }} source={require('../../../assets/icons/jsactivitygray.png')} />
           <Text uppercase={true} style={styles.textStyles}>ACTIVITY</Text>
         </TouchableOpacity>

@@ -11,7 +11,8 @@ const rootEpic = combineEpics(
     AuthEpic.signupEpic,
     AuthEpic.loginEpic,
     JobEpic.allJobsEpic,
-    JobEpic.JobDetailsEpic
+    JobEpic.JobDetailsEpic,
+    JobEpic.MyJobAppliedEpic
   );
 
 //combine reducers

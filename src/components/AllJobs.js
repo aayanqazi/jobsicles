@@ -211,11 +211,11 @@ class MyJobs extends Component {
               refreshing={this.props.job.isProcessing}
               ListFooterComponent={this.renderFooter}
               onEndReached={this.requestMore}
-              onEndReachedThreshold={1}
+              onEndReachedThreshold={0.1}
             />
           }
         </Content >
-        <FooterNav2 />
+        <FooterNav2 activityRoute={()=>Actions.push('activites')}/>
       </Container >
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Modal, Image } from 'react-native';
 import { View, Text, Content, Icon, Right, Body } from 'native-base';
-import Button from '../components/Button';
+import Button from './Button';
 
 export default class Popup extends Component {
   state = {
@@ -17,7 +17,7 @@ export default class Popup extends Component {
         onRequestClose={() => this.setState({ visible: false })}
       >
         <View style={styles.modalStyles}>
-          <Image style={styles.icon} resizeMode="contain" source={require('../resources/icons/status_approve_accept.png')} />
+          <Image style={styles.icon} resizeMode="contain" source={require('../../../assets/icons/status_approve_accept.png')} />
 
           <Text style={styles.title}>Application Submitted</Text>
 

@@ -40,6 +40,22 @@ export default class JobEpic {
                     )
             })
 
+    static MyJobAppliedEpic = (action$) =>
+        action$.ofType(Jobs.APPLIED_JOBS_LIST)
+            .switchMap(({ payload }) => {
+                return HttpService.get(Path.URL + `.php?action=view_applied_jobs&tokenID=123&userID=${payload}`)
+                    .map((arr) => {
+                        console.log(arr);
+                        return JobActions.appliedJobsListSuccessful(arr.response.record)
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        return JobActions.appliedJobsListRejected(err)
+                    }
+                    )
+            })
+
+
     //Epic middleware for signup
     // static signupEpic = (action$) =>
     //     action$.ofType(Auth.SIGNUP)

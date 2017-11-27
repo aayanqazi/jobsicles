@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     isLoading:false,
     isError: false,
     errorMessage: {},
-    isDone: false
+    isDone: false,
+    myJobs:null
 }
 
 function JobReducer(state = INITIAL_STATE, action) {
@@ -24,6 +25,13 @@ function JobReducer(state = INITIAL_STATE, action) {
             return { ...state, isLoading: false, isError: false, jobDetails: action.payload, isDone: true };
         case JobActions.JOB_DETAILS_REJECTED:
             return { ...state, isLoading: false, isError: true, errorMessage: action.payload, isDone: false };
+        case JobActions.APPLIED_JOBS_LIST:
+            return { ...state, isLoading: true, isError: false, isDone: false };
+        case JobActions.APPLIED_JOBS_LIST_SUCCESSFUL:
+            return { ...state, isLoading: false, isError: false, myJobs: action.payload, isDone: true };
+        case JobActions.JAPPLIED_JOBS_LIST_REJECTED:
+            return { ...state, isLoading: false, isError: true, errorMessage: action.payload, isDone: false };
+
         default:
             return state;
     }

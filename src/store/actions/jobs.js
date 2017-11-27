@@ -43,4 +43,26 @@ export default class JobsActions {
             payload: error
         }
     }
+
+    static appliedJobsList(payload) {
+        return {
+            type: JobsConstants.APPLIED_JOBS_LIST,
+            payload: payload
+        }
+    }
+
+    static appliedJobsListSuccessful(authUser) {
+        console.log(authUser)
+        return {
+            type: JobsConstants.APPLIED_JOBS_LIST_SUCCESSFUL,
+            payload: authUser
+        }
+    }
+
+    static appliedJobsListRejected(error) {
+        return {
+            type: JobsConstants.APPLIED_JOBS_LIST_REJECTED,
+            payload: error
+        }
+    }
 }
