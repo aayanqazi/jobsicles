@@ -13,7 +13,7 @@ export default class JobEpic {
     static allJobsEpic = (action$) =>
         action$.ofType(Jobs.ALL_JOBS)
             .switchMap(({ payload }) => {
-                return HttpService.get(`https://jobsicle.mv/web_Api.php?tokenID=123&paged=${payload}`)
+                return HttpService.get(`https://jobsicle.mv/web_Api.php?tokenID=123&paged=${payload.page}&userID=${payload.id}`)
                     .map((arr) => {
                         console.log(arr);
                         if (arr.response.message !== "no record found") {

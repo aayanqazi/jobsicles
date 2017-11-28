@@ -8,10 +8,10 @@ export default class Splash extends React.Component {
   componentDidMount(){
     setTimeout(async function(){
       let value = await AsyncStorage.getItem('user');
-      console.log(value)
+      var user = JSON.parse(value);
       if(value)
       {
-        Actions.replace('alljobs')
+        Actions.replace('alljobs',{user:value})
       }
       else{
         Actions.replace('splashOne')        

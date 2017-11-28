@@ -12,7 +12,7 @@ import { Actions } from "react-native-router-flux";
 import moment from "moment";
 import { FontAwesome } from "@expo/vector-icons"
 
-const JobDetailsItems = ({ data ,save}) => {
+const JobDetailsItems = ({ data, save }) => {
   var url;
   data.attachFile ? url = data.attachFile.replace(/[\"\]']+/g, '').replace(/[\[\]']+/g, '') : null;
   console.log(moment.unix(data.JobexpiresDate).format("DD/MMM/YYYY"))
@@ -96,7 +96,7 @@ const JobDetailsItems = ({ data ,save}) => {
         </View>
         <View style={styles.stickyBarRight}>
           <View style={{ alignSelf: "center", flexDirection: "row", alignItems: "center" }}>
-            <Text style={styles.stickyBarText} onPress={()=>save()}>Save</Text>
+            <Text style={styles.stickyBarText} onPress={() => save()}>Save</Text>
             <Image resizeMode="contain" style={{ width: 10, height: 10, marginHorizontal: 5 }} source={require('../../assets/icons/notsaved_small.png')} />
           </View>
         </View>
@@ -112,8 +112,8 @@ const upperCase = (string) => {
 const styles = {
   stickyBar: {
     flexDirection: "row",
-    position:'absolute',
-    bottom:0
+    position: 'absolute',
+    bottom: 0
   },
   icon: {
     fontSize: 16,
@@ -234,10 +234,15 @@ class JobDetails extends Component {
   }
 
   savedJob = () => {
-    fetch(`https://jobsicle.mv/api.php?action=bookmark_jobs&tokenID=123&jobID=${this.state.jobID}&userID=5268`)
+    console.log(`https://jobsicle.mv/api.php?action=bookmark_jobs&tokenID=123&jobID=${this.props.navigation.state.params.job.jobID}&userID=${this.props.user.id}`)
+    fetch(`https://jobsicle.mv/api.php?action=bookmark_jobs&tokenID=123&jobID=${this.props.navigation.state.params.job.jobID}&userID=${this.props.user.id}`)
+      .then(arr => {
+        console.log(arr)
+      })
+      .catch(err => console.log(err))
   }
   render() {
-    console.log('statet', this.state)
+    console.log('statet', this.props)
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         {this.state.animation &&
@@ -259,7 +264,7 @@ class JobDetails extends Component {
             source={this.state.animation}
           />}
         <Content style={{ backgroundColor: "#fff" }}>
-          <JobDetailsItems data={this.state.data} save={this.savedJob}/>
+          <JobDetailsItems data={this.state.data} save={this.savedJob} />
         </Content >
       </Container >
     )

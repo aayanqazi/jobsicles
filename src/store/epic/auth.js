@@ -29,11 +29,16 @@ export default class AuthEpic {
             .switchMap(({ payload }) => {
                 return HttpService.get(Path.URL + '/get_nonce/?controller=user&method=register')
                     .switchMap(({ response }) => {
-                        return HttpService.get(Path.URL + `/user/register/?username=${payload.username}&email=${payload.email}&nonce=${response.nonce}&display_name=${payload.username}&user_pass=${payload.password}&role=${payload.role}`)
+                        return HttpService.get(Path.URL + `/user/register/?username=${payload.username.split('@')[0]}&email=${payload.username}&nonce=${response.nonce}&display_name=${payload.username}&user_pass=${payload.password}&role=${payload.role}`)
                             .map((arr) => {
+                                console.log(arr)
                                 return AuthActions.signupupSuccessful(arr)
                             })
-                            .catch(err => AuthActions.signupRejected(err))
+                            .catch(err => {
+                                console.log(err)
+                                AuthActions.signupRejected(err)
+                            }
+                            )
                     })
             })
 }

@@ -8,7 +8,7 @@ import JobActions from "../store/actions/jobs";
 import Loader from "./common/loader";
 import { Actions } from 'react-native-router-flux';
 
-const AllJobsItems = ({ data }) => {
+const AllJobsItems = ({ data ,user}) => {
   const styles = {
     rowStyles: {
       flexDirection: "row",
@@ -43,7 +43,7 @@ const AllJobsItems = ({ data }) => {
 
   return (
     // <Content>
-    <ListItem onPress={() => Actions.push('jobDetails', { job: data.item })}>
+    <ListItem onPress={() => Actions.push('jobDetails', { job: data.item ,user:user})}>
       <Left>
         <View style={styles.rowStyles}>
           <View style={{ marginLeft: 15 }}>
@@ -106,7 +106,10 @@ const AllJobsItems = ({ data }) => {
         <View style={styles.rowStyles}>
           {data.item.attachFile === "" ? <View></View> : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/jsactivitygreen.png')} />
           }
-          <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
+          {data.bookmark ? <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
+            : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/notsaved_big.png')} />
+          }
+          
         </View>
       </Right>
     </ListItem>
@@ -118,7 +121,8 @@ class MyJobs extends Component {
   state = {
     data: [],
     page: 1,
-    loading: false
+    loading: false,
+    user:null
   }
 
   componentWillReceiveProps(newProps) {
@@ -128,7 +132,6 @@ class MyJobs extends Component {
       })
     }
     if (newProps.job.isDone) {
-      console.log('lalalalalala')
       this.setState({
         data: this.state.page === 0 ? newProps.job.alljobs : this.state.data.concat(newProps.job.alljobs),
         page: this.state.page + 1
@@ -146,7 +149,8 @@ class MyJobs extends Component {
   }
 
   makeRemoteRequest = () => {
-    this.props.getJob(this.state.page)
+    var userID = JSON.parse(this.props.user)
+    this.props.getJob({ page: this.state.page, id: userID.id })
   }
 
   requestMore = () => {
@@ -191,7 +195,7 @@ class MyJobs extends Component {
     );
   };
   render() {
-    console.log(this.state)
+    var user = JSON.parse(this.props.user)
     return (
       <Container>
         <HeaderSmall
@@ -204,7 +208,7 @@ class MyJobs extends Component {
             <FlatList
               data={this.state.data}
               renderItem={(items) => (
-                <AllJobsItems data={items} />
+                <AllJobsItems data={items} user={user}ss/>
               )}
               removeClippedSubviews={false}
               keyExtractor={(item, index) => index}
@@ -215,7 +219,7 @@ class MyJobs extends Component {
             />
           }
         </Content >
-        <FooterNav2 activityRoute={()=>Actions.push('activites')}/>
+        <FooterNav2 activityRoute={() => Actions.push('activites')} />
       </Container >
     )
   }
