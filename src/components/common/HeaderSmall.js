@@ -18,7 +18,7 @@ export default class HeaderSmall extends Component {
         </Body>
         <Right>
           {
-            this.props.rightIcon ? <Icon style={styles.icons} name={this.props.rightIconName} /> : null
+            this.props.rightIcon ? this.props.rightAction? <Icon style={styles.icons} onPress={this.props.rightAction} name={this.props.rightIconName} />:<Icon style={styles.icons} name={this.props.rightIconName} /> : null
           }
           <Text style={styles.rightText}>{this.props.rightText}</Text>
         </Right>

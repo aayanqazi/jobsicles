@@ -241,6 +241,7 @@ class JobDetails extends Component {
       })
       .catch(err => console.log(err))
   }
+  
   render() {
     console.log('statet', this.props)
     return (

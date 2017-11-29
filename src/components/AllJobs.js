@@ -7,8 +7,9 @@ import { connect } from 'react-redux'
 import JobActions from "../store/actions/jobs";
 import Loader from "./common/loader";
 import { Actions } from 'react-native-router-flux';
+import Popup from "./Filter";
 
-const AllJobsItems = ({ data ,user}) => {
+const AllJobsItems = ({ data, user }) => {
   const styles = {
     rowStyles: {
       flexDirection: "row",
@@ -43,7 +44,7 @@ const AllJobsItems = ({ data ,user}) => {
 
   return (
     // <Content>
-    <ListItem onPress={() => Actions.push('jobDetails', { job: data.item ,user:user})}>
+    <ListItem onPress={() => Actions.push('jobDetails', { job: data.item, user: user })}>
       <Left>
         <View style={styles.rowStyles}>
           <View style={{ marginLeft: 15 }}>
@@ -109,7 +110,7 @@ const AllJobsItems = ({ data ,user}) => {
           {data.bookmark ? <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/saved_small.png')} />
             : <Image resizeMode="contain" style={styles.rightIcons} source={require('../../assets/icons/notsaved_big.png')} />
           }
-          
+
         </View>
       </Right>
     </ListItem>
@@ -122,7 +123,8 @@ class MyJobs extends Component {
     data: [],
     page: 1,
     loading: false,
-    user:null
+    user: null,
+    modal: false
   }
 
   componentWillReceiveProps(newProps) {
@@ -163,23 +165,6 @@ class MyJobs extends Component {
 
   }
 
-  // async componentWillMount() {
-  //   if (this.props.auth.isAuthenticated) {
-  //     if (this.props.auth.authUser) {
-  //       await AsyncStorage.getItem('user', JSON.parse({
-  //         // isLoggedIn: true,
-  //         cookie: newProps.auth.authUser.cookie,
-  //         id: newProps.auth.authUser.user.id,
-  //       }));
-  //       console.log("(user logged in)");
-  //     }
-  //     // Actions.replace('alljobs');
-  //   }
-  //   else if (newProps.auth.isError) {
-  //     alert('Something Went Wrong !');
-  //   }
-  // }
-
   renderFooter = () => {
     if (this.state.loading) return null;
     return (
@@ -194,6 +179,9 @@ class MyJobs extends Component {
       </View>
     );
   };
+  openModal = () => {
+    this.setState({ modal: !this.state.modal})
+  }
   render() {
     var user = JSON.parse(this.props.user)
     return (
@@ -202,13 +190,15 @@ class MyJobs extends Component {
           headerText="All Jobs"
           rightIcon={true}
           rightIconName="ios-options"
+          rightAction={this.openModal}
         />
-        <Content style={{ backgroundColor: "#fff" }}>
+        <Popup modalVisible={this.state.modal} change={this.openModal}/>
+        <Content style={{backgroundColor: "#fff" }}>
           {this.state.data.length === 0 ? null :
             <FlatList
               data={this.state.data}
               renderItem={(items) => (
-                <AllJobsItems data={items} user={user}ss/>
+                <AllJobsItems data={items} user={user} />
               )}
               removeClippedSubviews={false}
               keyExtractor={(item, index) => index}
