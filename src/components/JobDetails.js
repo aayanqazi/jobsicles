@@ -211,6 +211,7 @@ class JobDetails extends Component {
   }
 
   componentWillMount() {
+    console.log(this.props)
     this._playAnimation();
     this.makeRemoteRequest(this.props.navigation.state.params.job.jobID);
   }

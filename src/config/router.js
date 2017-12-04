@@ -55,6 +55,7 @@ import JobDetails from "../components/JobDetails";
 import Employer from "../components/Employer";
 // import ApplyJob from "../components/Apply";
 import Activites from "../components/Activities";
+import Search from "../components/SearchResult";
 
 var RouterNative = () => {
   return (
@@ -71,6 +72,8 @@ var RouterNative = () => {
         <Scene hideNavBar={true} key="employee" component={Employer} />
         {/* <Scene hideNavBar={true} key="apply" component={ApplyJob} /> */}
         <Scene hideNavBar={true} key="activites" component={Activites} />
+        <Scene hideNavBar={true} key="search" component={Search} />
+
 
 
         {/* <Scene hideNavBar={true} key="intro" component={Intro} />
