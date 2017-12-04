@@ -14,6 +14,7 @@ export default class AuthEpic {
             .switchMap(({ payload }) => {
                 return HttpService.get(Path.URL + `/user/generate_auth_cookie/?username=${payload.username}&password=${payload.password}`)
                     .map((arr) => {
+                        console.log(arr);
                         if (arr.response.error) {
                             return AuthActions.signinRejected(arr.response)
                         }
@@ -31,14 +32,11 @@ export default class AuthEpic {
                     .switchMap(({ response }) => {
                         return HttpService.get(Path.URL + `/user/register/?username=${payload.username.split('@')[0]}&email=${payload.username}&nonce=${response.nonce}&display_name=${payload.username}&user_pass=${payload.password}&role=${payload.role}`)
                             .map((arr) => {
-                                console.log(arr)
                                 return AuthActions.signupupSuccessful(arr)
+
                             })
-                            .catch(err => {
-                                console.log(err)
-                                AuthActions.signupRejected(err)
-                            }
-                            )
+                            .catch(err => AuthActions.signupRejected(err.response))
+
                     })
             })
 }
